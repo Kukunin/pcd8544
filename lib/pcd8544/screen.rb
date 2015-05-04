@@ -1,6 +1,9 @@
 require 'pi_piper'
 
 class Pcd8544::Screen
+  WIDTH = 84
+  HEIGHT = 48
+
   attr_reader :pins
 
   def initialize(options = {})
@@ -43,6 +46,46 @@ class Pcd8544::Screen
       @pins[:SDIN].update_value bit
       @pins[:SCLK].on
       @pins[:SCLK].off
+    end
+  end
+
+  def set_initial
+    # Reset the controller
+    @pins[:RESET].off
+    @pins[:RESET].on
+
+    @pins[:DC].off
+    send_byte 0x21 # Extended Instruction Set
+    send_byte 0xBF # Vop (Contrast)
+    send_byte 0x07 # Temp Coefficient
+    send_byte 0x14 # Bias mode 1:48
+    send_byte 0x20 # Basic Instruction Set
+    send_byte 0x0C # Normal display
+  end
+
+  def draw_string(string)
+    string.split('').each do |symbol|
+      draw_symbol symbol
+    end
+  end
+
+  def draw_symbol(symbol)
+    bytes = Pcd8544::ASCII[symbol.ord - 0x20]
+
+    @pins[:DC].on
+    send_byte 0x00
+    bytes.each { |byte| send_byte byte }
+    send_byte 0x00
+  end
+
+  def clear
+    @pins[:DC].off
+    send_byte 0x80 # reset X pointer
+    send_byte 0x40 # reset Y pointer
+
+    @pins[:DC].on
+    (WIDTH * HEIGHT / 8).times do
+      send_byte 0x00
     end
   end
 end
