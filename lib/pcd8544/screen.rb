@@ -20,4 +20,14 @@ class Pcd8544::Screen
       @pins[pin] = PiPiper::Pin.new :pin => options[:pins][pin], :direction => :out
     end
   end
+
+  def light(value)
+    return if @light == value
+    @pins[:LED].update_value value
+    @light = value
+  end
+
+  def light?
+    @light
+  end
 end

@@ -31,6 +31,12 @@ You can override pins at constructor:
 
     screen = Pcd8544::Screen.new pins: { SCE: 5, RESET: 6 }
 
+### Backlight
+
+To control the backlight you can use
+
+    screen.light(true)
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
