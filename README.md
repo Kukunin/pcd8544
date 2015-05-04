@@ -12,7 +12,24 @@ Install the gem:
 
 ## Usage
 
-TODO: Write usage instructions here
+Initialize the class for your screen:
+
+    screen = Pcd8544::Screen.new
+
+The default pins are
+
+| PIN Name | GPIO |
+|----------|------|
+| SCE      |  8   |
+| RESET    |  24  |
+| DC       |  23  |
+| SDIN     |  10  |
+| SCLK     |  11  |
+| LED      |  18  |
+
+You can override pins at constructor:
+
+    screen = Pcd8544::Screen.new pins: { SCE: 5, RESET: 6 }
 
 ## Development
 
