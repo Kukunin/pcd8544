@@ -55,4 +55,30 @@ RSpec.describe Pcd8544::Screen do
       end
     end
   end
+
+  describe "#send_byte" do
+    let(:sclk_pin) { screen.pins[:SCLK].pin }
+    let(:sdin_pin) { screen.pins[:SDIN].pin }
+
+    [0x00, 0x77, 0xFF].each do |byte|
+      context "with #{byte.to_s(16)} byte" do
+        before do
+          allow(stub_driver).to receive(:pin_set)
+          screen.send_byte byte
+        end
+
+        it "clocks eight times" do
+          expect(stub_driver).to have_received(:pin_set)
+            .with(sclk_pin, Pcd8544::GPIO_HIGH)
+            .exactly(8).times
+        end
+
+        it "sets SDIN pin eight times" do
+          expect(stub_driver).to have_received(:pin_set)
+            .with(sdin_pin, anything)
+            .exactly(8).times
+        end
+      end
+    end
+  end
 end
