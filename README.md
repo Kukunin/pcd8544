@@ -84,6 +84,22 @@ or
 screen.data_mode?
 ```
 
+### Function Set
+
+The controller has two different function set for COMMAND mode: BASIC and EXTENDED. The same way, you can switch them using:
+
+```ruby
+screen.ensure_basic_set
+screen.ensure_extended_set
+```
+
+And to get current function set:
+
+```ruby
+screen.basic_set?
+screen.extended_set?
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
