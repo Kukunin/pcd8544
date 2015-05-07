@@ -1,10 +1,12 @@
 require 'pi_piper'
 require 'pcd8544/backlight'
 require 'pcd8544/send_byte'
+require 'pcd8544/instruction_mode'
 
 class Pcd8544::Screen
   include Pcd8544::Backlight
   include Pcd8544::SendByte
+  include Pcd8544::InstructionMode
 
   attr_reader :pins
 

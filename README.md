@@ -58,6 +58,31 @@ To get current state you can use
 screen.backlight?
 ```
 
+### Instruction Mode
+
+PCD8544 controller has two instruction modes: COMMAND and DATA, indicated by DC pin. To switch between the modes, you can use
+
+```ruby
+screen.ensure_command_mode
+```
+
+or
+
+```ruby
+screen.ensure_data_mode
+```
+
+You can also check the current mode:
+
+```ruby
+screen.command_mode?
+```
+
+or
+
+```ruby
+screen.data_mode?
+```
 
 ## Development
 
