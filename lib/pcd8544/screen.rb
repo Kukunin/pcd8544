@@ -1,6 +1,9 @@
 require 'pi_piper'
+require 'pcd8544/backlight'
 
 class Pcd8544::Screen
+  include Pcd8544::Backlight
+
   attr_reader :pins
 
   def initialize(options = {})
@@ -19,16 +22,6 @@ class Pcd8544::Screen
     [:SCE, :RESET, :DC, :SDIN, :SCLK, :LED].each do |pin|
       @pins[pin] = PiPiper::Pin.new :pin => options[:pins][pin], :direction => :out
     end
-  end
-
-  def light(value)
-    return if @light == value
-    @pins[:LED].update_value value
-    @light = value
-  end
-
-  def light?
-    @light
   end
 
   def send_byte(byte)

@@ -35,7 +35,17 @@ You can override pins at constructor:
 
 To control the backlight you can use
 
-    screen.light(true)
+    screen.backlight(true) # turn on
+
+or
+
+    screen.backlight(false) # turn off
+
+To get current state you can use
+
+
+    screen.backlight?
+
 
 ## Development
 

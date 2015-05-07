@@ -1,5 +1,4 @@
 require "spec_helper"
-require "pi_piper"
 
 RSpec.describe Pcd8544::Screen do
   let(:screen) { Pcd8544::Screen.new }
@@ -22,36 +21,6 @@ RSpec.describe Pcd8544::Screen do
         screen = Pcd8544::Screen.new pins: { SCE: 4 }
         expect(screen.pins[:SCE]).to be_a PiPiper::Pin
         expect(screen.pins[:SCE].pin).to eq 4
-      end
-    end
-  end
-
-  describe "#light" do
-    let(:led_pin) { screen.pins[:LED].pin }
-
-    context "with true" do
-      it "turns light" do
-        screen.light(true)
-        expect(stub_driver.pin_read(led_pin)).to eq Pcd8544::GPIO_HIGH
-        expect(screen.light?).to be_truthy
-      end
-
-      context "and already lighted" do
-        before { screen.light(true) }
-
-        it "does do nothing" do
-          expect(stub_driver)
-            .to_not receive(:pin_set).with(led_pin, Pcd8544::GPIO_HIGH)
-          screen.light(true)
-        end
-      end
-    end
-
-    context "with false" do
-      it "turns off light" do
-        screen.light(false)
-        expect(stub_driver.pin_read(led_pin)).to eq Pcd8544::GPIO_LOW
-        expect(screen.light?).to be_falsey
       end
     end
   end
