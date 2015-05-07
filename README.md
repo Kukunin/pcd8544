@@ -8,13 +8,17 @@ Datasheet for PCD8544 may be found [here](https://www.sparkfun.com/datasheets/LC
 
 Install the gem:
 
-    $ gem install pcd8544
+```bash
+$ gem install pcd8544
+```
 
 ## Usage
 
 Initialize the class for your screen:
 
-    screen = Pcd8544::Screen.new
+```ruby
+screen = Pcd8544::Screen.new
+```
 
 The default pins are
 
@@ -29,22 +33,30 @@ The default pins are
 
 You can override pins at constructor:
 
-    screen = Pcd8544::Screen.new pins: { SCE: 5, RESET: 6 }
+```ruby
+screen = Pcd8544::Screen.new(pins: { SCE: 5, RESET: 6 })
+```
 
 ### Backlight
 
 To control the backlight you can use
 
-    screen.backlight(true) # turn on
+```ruby
+screen.backlight(true) # turn on
+```
 
 or
 
-    screen.backlight(false) # turn off
+```ruby
+screen.backlight(false) # turn off
+```
 
 To get current state you can use
 
 
-    screen.backlight?
+```ruby
+screen.backlight?
+```
 
 
 ## Development
